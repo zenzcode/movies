@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #03012c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.eric.movies.MoviesController">
+   <children>
+      <TextField fx:id="searchBar" layoutX="631.0" layoutY="20.0" promptText="Search..." style="-fx-background-color: #27246e; -fx-text-fill: white; -fx-prompt-text-fill: white;" />
+      <Button fx:id="search" layoutX="781.0" layoutY="20.0" mnemonicParsing="false" onAction="#searchStart" style="-fx-background-color: #b33c86;" text="Go" textFill="WHITE" />
+      <ScrollPane fx:id="moviesPane" layoutY="69.0" prefHeight="532.0" prefWidth="840.0" style="-fx-background: 03012c;" />
+   </children>
+</AnchorPane>
