@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -25,8 +26,6 @@ public class MoviesController {
 
     private int currentOffset = 0;
 
-    private int initialMovies = 25;
-
     private int moviesPerScroll = 10;
 
     private List<MovieModel> loadedMovies;
@@ -35,10 +34,11 @@ public class MoviesController {
 
     @FXML
     public void initialize() throws IOException {
+        loadedMovies = new ArrayList<>();
         try {
             bLoadingNewMovies = true;
-            loadedMovies = Movies.getMySQLConnection().getMoviesWithLimit(initialMovies);
-            currentOffset+=initialMovies;
+            loadNewMovies();
+            currentOffset+=moviesPerScroll;
             renderMovies();
             bLoadingNewMovies = false;
         } catch (SQLException e) {
@@ -46,12 +46,10 @@ public class MoviesController {
         }
 
         moviesPane.vvalueProperty().addListener((obs, oldValue, newValue) -> {
-            System.out.println(bLoadingNewMovies);
             if(newValue.doubleValue() == 1.f && !bLoadingNewMovies) {
                 bLoadingNewMovies = true;
                 new Thread(() -> Platform.runLater(() -> {
                     try {
-                        System.out.println("LOAD NEW MOVIES");
                         loadNewMovies();
                         currentOffset += moviesPerScroll;
                     } catch (SQLException e) {
@@ -65,7 +63,6 @@ public class MoviesController {
                 bLoadingNewMovies = true;
                 new Thread(() -> Platform.runLater(() -> {
                     try {
-                        System.out.println("LOAD EARLIER MOVIES");
                         currentOffset -= moviesPerScroll;
                         if(currentOffset < 0 )
                         {
@@ -77,7 +74,7 @@ public class MoviesController {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }));
+                })).start();
             }
         });
     }
@@ -103,7 +100,8 @@ public class MoviesController {
     }
 
     private void loadNewMovies() throws SQLException, IOException{
-        List<MovieModel> temporaryMovieModels = Movies.getMySQLConnection().getMoviesWithLimit(moviesPerScroll, currentOffset);
+        System.out.printf("LOADING MOVIES FROM OFFSET %d \n", currentOffset);
+        List<MovieModel> temporaryMovieModels = Movies.getMySQLConnection().getMoviesWithLimit(moviesPerScroll, currentOffset - 1 < 0 ? 0 : currentOffset);
         loadedMovies.clear();
         loadedMovies.addAll(temporaryMovieModels);
         renderMovies();

@@ -88,7 +88,7 @@ public class MySQLConnection {
                 movieModel.title = resultSet.getString("title");
                 movieModel.description = resultSet.getString("description");
                 movieModel.category = Category.values()[resultSet.getInt("category_id") - 1];
-                movieModel.ratingStars = Math.round((float)resultSet.getInt("review_score") / 10);
+                movieModel.ratingStars = (resultSet.getInt("review_score"))*5 / 10;
                 modelList.add(movieModel);
             }
 
