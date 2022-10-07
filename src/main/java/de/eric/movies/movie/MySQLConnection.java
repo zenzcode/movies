@@ -74,8 +74,8 @@ public class MySQLConnection {
     }
 
     public List<MovieModel> getMoviesWithLimit(int limit, int offset) throws SQLException {
-        String query =  "SELECT Film.title, Film.description, Film.review_score, Category.category_id " +
-                "FROM film AS Film INNER JOIN category AS Category INNER JOIN film_category AS FilmCategory " +
+        String query =  "SELECT Film.title, Film.description, Film.review_score, FilmCategory.category_id " +
+                "FROM film AS Film INNER JOIN film_category AS FilmCategory " +
                 "ON film.film_id = FilmCategory.film_id GROUP BY Film.title LIMIT " + limit + " OFFSET " + offset;
         try{
             sqlStatement = con.createStatement();
