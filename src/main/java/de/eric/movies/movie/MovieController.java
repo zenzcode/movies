@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.controlsfx.control.Rating;
@@ -27,6 +29,7 @@ public class MovieController {
     @FXML
     public ImageView movieImage;
 
+
     private MovieModel movie;
 
     public void initModel(MovieModel movie) {
@@ -45,6 +48,8 @@ public class MovieController {
         FXMLLoader loader = new FXMLLoader(Movies.class.getResource("movie-details.fxml"));
         Scene scene = new Scene(loader.load(), 800, 550);
         Stage stage = (Stage) movieTitle.getScene().getWindow();
+
+
 
         stage.setTitle(movie.title + " - Details");
 
