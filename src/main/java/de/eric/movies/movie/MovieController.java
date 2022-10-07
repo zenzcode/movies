@@ -1,6 +1,7 @@
 package de.eric.movies.movie;
 
 import de.eric.movies.Movies;
+import de.eric.movies.movie.movieDetails.MovieDetailsController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,9 +48,12 @@ public class MovieController {
     public void openDetailsPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(Movies.class.getResource("movie-details.fxml"));
         Scene scene = new Scene(loader.load(), 840, 600);
+
+        MovieDetailsController movieDetailsController = loader.getController();
+
+        movieDetailsController.initModel(movie);
+
         Stage stage = (Stage) movieTitle.getScene().getWindow();
-
-
 
         stage.setTitle(movie.title + " - Details");
 
