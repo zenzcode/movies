@@ -8,9 +8,9 @@
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.*?>
 
-<AnchorPane prefHeight="150.0" prefWidth="840.0" style="-fx-background-color: #03012c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.eric.movies.movie.movieDetails.MovieDetailsController">
+<AnchorPane prefHeight="600.0" prefWidth="840.0" style="-fx-background-color: #03012c;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.eric.movies.movie.movieDetails.MovieDetailsController">
    <children>
-      <HBox prefHeight="150.0" prefWidth="840.0">
+      <HBox prefHeight="600.0" prefWidth="840.0">
          <children>
             <ImageView fitHeight="560.0" fitWidth="250.0" pickOnBounds="true">
                <HBox.margin>
@@ -22,7 +22,8 @@
                   <Label fx:id="movieTitle" layoutX="14.0" layoutY="50.0" maxWidth="180.0" text="Title" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="movieCategory" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="71.0" text="Category" textFill="WHITE" />
                   <Rating fx:id="movieRating" layoutX="197.0" layoutY="58.0" prefHeight="33.0" prefWidth="235.0" style="-fx-background: red;">
                      <effect>
@@ -31,6 +32,20 @@
                   </Rating>
                   <TextFlow fx:id="movieLongText" layoutX="14.0" layoutY="130" prefHeight="200.0" prefWidth="415.0" />
                   <Pane layoutX="185.0" layoutY="-20.0" prefHeight="200.0" prefWidth="200.0" />
+
+                  <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="350.0" text="Länge: " textFill="WHITE" />
+                  <Label fx:id="movieLengthValue" alignment="CENTER_RIGHT" layoutX="90.0" layoutY="350.0" text="00:00" textFill="WHITE" />
+
+                  <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="370.0" text="Erschienen: " textFill="WHITE" />
+                  <Label fx:id="movieReleaseValue" alignment="CENTER_RIGHT" layoutX="90.0" layoutY="370.0" text="0000" textFill="WHITE" />
+
+                  <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="390.0" text="Preis: " textFill="WHITE" />
+                  <Label fx:id="movieCostValue" alignment="CENTER_RIGHT" layoutX="90.0" layoutY="390.0" text="0000" textFill="WHITE" />
+                  <Button layoutX="546.0" layoutY="520.0" mnemonicParsing="false" onAction="#returnMainPage" prefHeight="70.0" prefWidth="154.0" style="-fx-background-color: #b33c86;" text="Zurück" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </children>

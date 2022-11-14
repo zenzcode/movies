@@ -1,14 +1,22 @@
 package de.eric.movies.movie.movieDetails;
 
+import de.eric.movies.Movies;
+import de.eric.movies.MoviesController;
+import de.eric.movies.movie.MovieController;
 import de.eric.movies.movie.MovieModel;
 import de.eric.movies.movie.category.Category;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import javafx.stage.Stage;
 import org.controlsfx.control.Rating;
+
+import java.io.IOException;
 
 public class MovieDetailsController {
 
@@ -24,6 +32,13 @@ public class MovieDetailsController {
     public Label movieCategory;
 
     @FXML
+    public Label movieLengthValue;
+    @FXML
+    public Label movieCostValue;
+    @FXML
+    public Label movieReleaseValue;
+
+    @FXML
     public Rating movieRating;
 
     public void initModel(MovieModel model) {
@@ -35,6 +50,28 @@ public class MovieDetailsController {
         this.movieLongText.getChildren().add(descriptionText);
         this.movieTitle.setText(model.title);
         this.movieCategory.setText(model.category.name());
+        this.movieLengthValue.setText(Integer.toString(model.length));
+        this.movieCostValue.setText(Double.toString(model.price));
+        this.movieReleaseValue.setText(Integer.toString(model.year));
         this.movieRating.setRating(model.ratingStars);
+    }
+
+    public void returnMainPage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Movies.class.getResource("movies-main.fxml"));
+        Scene scene = new Scene(loader.load(), 840, 600);
+
+        MoviesController moviesController = loader.getController();
+
+        moviesController.initialize();
+
+        Stage stage = (Stage) movieTitle.getScene().getWindow();
+
+        stage.setTitle("Movies");
+
+        stage.setResizable(false);
+
+        stage.setScene(scene);
+
+        stage.show();
     }
 }

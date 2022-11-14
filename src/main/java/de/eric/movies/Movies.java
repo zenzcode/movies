@@ -29,6 +29,18 @@ public class Movies extends Application {
 
     public static void main(String[] args) {
         try {
+
+
+
+
+
+
+
+
+
+
+
+
             mySQLConnection = new MySQLConnection("localhost", "3306", "movies", "root", "");
             mySQLConnection.create();
         }catch(Exception e){
