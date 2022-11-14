@@ -1,19 +1,40 @@
 package de.eric.movies.movie.movieDetails;
 
+import de.eric.movies.movie.MovieModel;
+import de.eric.movies.movie.category.Category;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import org.controlsfx.control.Rating;
 
 public class MovieDetailsController {
 
+    private MovieModel movieModel;
 
     @FXML
     public TextFlow movieLongText;
 
-    public void initialize() {
-        Text text1 = new Text("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
-        text1.setFill(Color.WHITE);
+    @FXML
+    public Label movieTitle;
 
-        this.movieLongText.getChildren().add(text1);
+    @FXML
+    public Label movieCategory;
+
+    @FXML
+    public Rating movieRating;
+
+    public void initModel(MovieModel model) {
+        this.movieModel = model;
+
+        Text descriptionText = new Text(model.description);
+        descriptionText.setFill(Color.WHITE);
+
+        this.movieLongText.getChildren().add(descriptionText);
+        this.movieTitle.setText(model.title);
+        this.movieCategory.setText(model.category.name());
+        this.movieRating.setRating(model.ratingStars);
     }
 }

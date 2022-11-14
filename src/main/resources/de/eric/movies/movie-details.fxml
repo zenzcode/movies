@@ -30,6 +30,7 @@
                      </effect>
                   </Rating>
                   <TextFlow fx:id="movieLongText" layoutX="14.0" layoutY="130" prefHeight="200.0" prefWidth="415.0" />
+                  <Pane layoutX="185.0" layoutY="-20.0" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </AnchorPane>
          </children>
