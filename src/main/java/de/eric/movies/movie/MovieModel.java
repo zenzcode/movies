@@ -8,6 +8,9 @@ import java.net.URL;
 public class MovieModel {
     public String title;
     public String description;
+    public int length;
+    public double price;
+    public int year;
     public int ratingStars;
     public Category category;
 
