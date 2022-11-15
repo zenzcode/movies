@@ -45,6 +45,9 @@ public class MovieController {
         movieImage.setImage(new Image(movie.imagePath.toString()));
     }
 
+    /**
+     * Opens a detail page for a movie
+     */
     public void openDetailsPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(Movies.class.getResource("movie-details.fxml"));
         Scene scene = new Scene(loader.load(), 840, 600);

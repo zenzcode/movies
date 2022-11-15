@@ -29,6 +29,9 @@ public class MySQLConnection {
         this.dbPass = dbPass;
     }
 
+    /*
+     * Creates and Opens SQL Connection
+     */
     public void create()
     {
         try {
@@ -43,6 +46,9 @@ public class MySQLConnection {
         }
     }
 
+    /*
+     * Closes Connection
+     */
     public void close() {
         try{
             if(sqlStatement != null){
@@ -59,7 +65,11 @@ public class MySQLConnection {
         }
     }
 
-    public void UpdateDB(String sql){
+    /*
+     * Runs Update Statement
+     * @param sql Statement to run
+     */
+    public void updateDB(String sql){
         try{
             sqlStatement.executeUpdate(sql);
         }catch (SQLException e){
@@ -69,10 +79,21 @@ public class MySQLConnection {
         }
     }
 
+    /*
+     * Returns a certain number of movies
+     * @param limit number of movies
+     * @return List of Movies
+     */
     public List<MovieModel> getMoviesWithLimit(int limit) throws SQLException {
         return getMoviesWithLimit(limit, 0);
     }
 
+    /**
+     * Returns certain nr of movies from start
+     * @param limit nr of movies
+     * @param offset number to start from
+     * @return List of Movie Models
+     */
     public List<MovieModel> getMoviesWithLimit(int limit, int offset) throws SQLException {
         String query =  "SELECT Film.title, Film.description, Film.review_score, FilmCategory.category_id, Film.length, Film.cost, Film.release_year " +
                 "FROM film AS Film INNER JOIN film_category AS FilmCategory " +

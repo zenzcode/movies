@@ -45,6 +45,9 @@ public class MoviesController {
             throw new RuntimeException(e);
         }
 
+        /*
+         * Binds to Scrolling to load new movies
+         */
         moviesPane.vvalueProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue.doubleValue() == 1.f && !bLoadingNewMovies) {
                 bLoadingNewMovies = true;
@@ -83,6 +86,9 @@ public class MoviesController {
 
     }
 
+    /***
+     * Renders Movies into VBox
+     */
     private void renderMovies() throws IOException {
         VBox movies = new VBox();
         moviesPane.setContent(null);
