@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class MoviesController {
 
@@ -29,7 +30,10 @@ public class MoviesController {
 
     private int moviesPerScroll = 10;
 
+    private List<MovieModel> allMovies;
     private List<MovieModel> loadedMovies;
+    private List<MovieModel> filteredMovies;
+
 
     private boolean bLoadingNewMovies = false;
 
@@ -40,6 +44,8 @@ public class MoviesController {
     @FXML
     public void initialize() throws IOException {
         loadedMovies = new ArrayList<>();
+        filteredMovies = new ArrayList<>();
+        allMovies = new ArrayList<>();
         try {
             bLoadingNewMovies = true;
             loadNewMovies();
@@ -101,15 +107,20 @@ public class MoviesController {
         thread = DelayManager.delay(1000, () -> {
             if(requestedSearch.isEmpty())
             {
-                try{
-                    bFromSearch = true;
-                    loadNewMovies();
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
+                filteredMovies = loadedMovies;
+                try {
+                    renderMovies();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } else {
+            } else if(requestedSearch.length() > 2) {
                 System.out.printf("LOADING MOVIES \n");
+                filteredMovies = allMovies.stream().filter(movie -> movie.title.toLowerCase().contains(requestedSearch.toLowerCase()) || movie.category.name().toLowerCase().contains(requestedSearch.toLowerCase())).collect(Collectors.toList());
+                try {
+                    renderMovies();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
@@ -120,9 +131,9 @@ public class MoviesController {
     private void renderMovies() throws IOException {
         VBox movies = new VBox();
         moviesPane.setContent(null);
-        for(int i = 0; i < loadedMovies.size(); ++i)
+        for(int i = 0; i < filteredMovies.size(); ++i)
         {
-            MovieModel movieModel = loadedMovies.get(i);
+            MovieModel movieModel = filteredMovies.get(i);
             FXMLLoader loader = new FXMLLoader(Movies.class.getResource("movie-list-entry.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
             MovieController controller = loader.getController();
@@ -136,8 +147,13 @@ public class MoviesController {
     private void loadNewMovies() throws SQLException, IOException{
         System.out.printf("LOADING MOVIES FROM OFFSET %d \n", currentOffset);
         List<MovieModel> temporaryMovieModels = Movies.getMySQLConnection().getMoviesWithLimit(moviesPerScroll, currentOffset - 1 < 0 ? 0 : currentOffset);
+        List<MovieModel> temporaryAllMovieModels = Movies.getMySQLConnection().getMovies();
         loadedMovies.clear();
         loadedMovies.addAll(temporaryMovieModels);
+        allMovies.clear();
+        allMovies.addAll(temporaryAllMovieModels);
+        filteredMovies.clear();
+        filteredMovies = loadedMovies;
         renderMovies();
         moviesPane.setVvalue(0);
         bLoadingNewMovies = false;
