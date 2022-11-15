@@ -2,6 +2,7 @@ package de.eric.movies;
 
 import de.eric.movies.movie.MovieController;
 import de.eric.movies.movie.MovieModel;
+import de.eric.movies.util.DelayManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,13 +33,16 @@ public class MoviesController {
 
     private boolean bLoadingNewMovies = false;
 
+    private Thread thread = null;
+
+    private boolean bFromSearch = false;
+
     @FXML
     public void initialize() throws IOException {
         loadedMovies = new ArrayList<>();
         try {
             bLoadingNewMovies = true;
             loadNewMovies();
-            currentOffset+=moviesPerScroll;
             renderMovies();
             bLoadingNewMovies = false;
         } catch (SQLException e) {
@@ -49,12 +53,16 @@ public class MoviesController {
          * Binds to Scrolling to load new movies
          */
         moviesPane.vvalueProperty().addListener((obs, oldValue, newValue) -> {
+            if(bFromSearch) {
+                bFromSearch = false;
+                return;
+            }
             if(newValue.doubleValue() == 1.f && !bLoadingNewMovies) {
                 bLoadingNewMovies = true;
                 new Thread(() -> Platform.runLater(() -> {
                     try {
-                        loadNewMovies();
                         currentOffset += moviesPerScroll;
+                        loadNewMovies();
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     } catch(IOException e) {
@@ -83,7 +91,27 @@ public class MoviesController {
     }
 
     public void searchStart() {
+        String requestedSearch = searchBar.getText();
 
+        if(thread != null && thread.isAlive())
+        {
+            thread.stop();
+        }
+
+        thread = DelayManager.delay(1000, () -> {
+            if(requestedSearch.isEmpty())
+            {
+                try{
+                    bFromSearch = true;
+                    loadNewMovies();
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.printf("LOADING MOVIES \n");
+            }
+        });
     }
 
     /***
