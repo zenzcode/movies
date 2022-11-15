@@ -153,7 +153,7 @@ public class MoviesController {
         allMovies.clear();
         allMovies.addAll(temporaryAllMovieModels);
         filteredMovies.clear();
-        filteredMovies = loadedMovies;
+        filteredMovies.addAll(loadedMovies);
         renderMovies();
         moviesPane.setVvalue(0);
         bLoadingNewMovies = false;
