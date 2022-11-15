@@ -56,6 +56,9 @@ public class MovieDetailsController {
         this.movieRating.setRating(model.ratingStars);
     }
 
+    /**
+     *  Goes back to main page
+     */
     public void returnMainPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(Movies.class.getResource("movies-main.fxml"));
         Scene scene = new Scene(loader.load(), 840, 600);
