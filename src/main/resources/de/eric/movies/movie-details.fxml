@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -12,11 +11,7 @@
    <children>
       <HBox prefHeight="600.0" prefWidth="840.0">
          <children>
-            <ImageView fitHeight="560.0" fitWidth="250.0" pickOnBounds="true">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ImageView>
+            <ImageView fx:id="movieImage" fitHeight="346.0" fitWidth="321.0" pickOnBounds="true" preserveRatio="true" />
             <AnchorPane prefHeight="150.0" prefWidth="710.0">
                <children>
                   <Label fx:id="movieTitle" layoutX="14.0" layoutY="50.0" maxWidth="180.0" text="Title" textFill="WHITE">

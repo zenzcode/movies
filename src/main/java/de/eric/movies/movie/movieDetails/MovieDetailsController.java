@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -37,6 +39,8 @@ public class MovieDetailsController {
     public Label movieCostValue;
     @FXML
     public Label movieReleaseValue;
+    @FXML
+    public ImageView movieImage;
 
     @FXML
     public Rating movieRating;
@@ -44,6 +48,8 @@ public class MovieDetailsController {
     public void initModel(MovieModel model) {
         this.movieModel = model;
 
+        String URL = Movies.class.getResource("Picture/"+ model.picturenname).toString();
+        Image bild = new Image(URL);
         Text descriptionText = new Text(model.description);
         descriptionText.setFill(Color.WHITE);
 
@@ -54,6 +60,7 @@ public class MovieDetailsController {
         this.movieCostValue.setText(Double.toString(model.price));
         this.movieReleaseValue.setText(Integer.toString(model.year));
         this.movieRating.setRating(model.ratingStars);
+        this.movieImage.setImage(bild);
     }
 
     /**

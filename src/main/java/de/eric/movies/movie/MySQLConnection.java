@@ -1,5 +1,7 @@
 package de.eric.movies.movie;
 import de.eric.movies.movie.category.Category;
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.ImageView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -95,9 +97,12 @@ public class MySQLConnection {
      * @return List of Movie Models
      */
     public List<MovieModel> getMoviesWithLimit(int limit, int offset) throws SQLException {
-        String query =  "SELECT Film.title, Film.description, Film.review_score, FilmCategory.category_id, Film.length, Film.cost, Film.release_year " +
+        String query =  "SELECT Film.title, Film.description, Film.review_score, FilmCategory.category_id, Film.length, Film.cost, Film.release_year, picture.picturename " +
                 "FROM film AS Film INNER JOIN film_category AS FilmCategory " +
-                "ON film.film_id = FilmCategory.film_id GROUP BY Film.title LIMIT " + limit + " OFFSET " + offset;
+                "ON film.film_id = FilmCategory.film_id "+
+                "INNER JOIN picture AS Picture " +
+                "ON Picture.IDPicture = film.IdPicture "+"GROUP BY Film.title LIMIT " + limit + " OFFSET " + offset;
+
         try{
             sqlStatement = con.createStatement();
             List<MovieModel> modelList = new ArrayList<>();
@@ -113,6 +118,7 @@ public class MySQLConnection {
                 movieModel.length = resultSet.getInt("length");
                 movieModel.category = Category.values()[resultSet.getInt("category_id") - 1];
                 movieModel.ratingStars = (resultSet.getInt("review_score"))*5 / 10;
+                movieModel.picturenname = resultSet.getString("Picture.picturename");
                 modelList.add(movieModel);
             }
 

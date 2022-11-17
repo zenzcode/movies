@@ -15,6 +15,7 @@ import javafx.stage.Window;
 import org.controlsfx.control.Rating;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class MovieController {
 
@@ -42,8 +43,11 @@ public class MovieController {
         movieTitle.setText(movie.title);
         movieCategory.setText(movie.category.name());
         movieRating.setRating(movie.ratingStars);
-        movieImage.setImage(new Image(movie.imagePath.toString()));
-    }
+        String URL = Movies.class.getResource("Picture/"+ movie.picturenname).toString();
+        Image bild = new Image(URL);
+        movieImage.setImage(bild);
+
+}
 
     /**
      * Opens a detail page for a movie
