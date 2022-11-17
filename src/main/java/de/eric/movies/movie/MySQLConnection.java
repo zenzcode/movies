@@ -136,9 +136,10 @@ public class MySQLConnection {
     public List<MovieModel> getMovies() throws SQLException {
         String query =  "SELECT Film.title, Film.description, Film.review_score, FilmCategory.category_id, Film.length, Film.cost, Film.release_year,Picture.picturename " +
                 "FROM film AS Film INNER JOIN film_category AS FilmCategory " +
+                "ON film.film_id = FilmCategory.film_id "+
                 "INNER JOIN picture AS Picture " +
-                "ON Picture.IDPicture = film.IdPicture "+
-                "ON film.film_id = FilmCategory.film_id GROUP BY Film.title";
+                "ON Picture.IDPicture = film.IdPicture GROUP BY Film.title ";
+
         try{
             sqlStatement = con.createStatement();
             List<MovieModel> modelList = new ArrayList<>();
