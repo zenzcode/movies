@@ -97,7 +97,7 @@ public class MoviesController {
     }
 
     public void searchStart() {
-        String requestedSearch = searchBar.getText();
+        String requestedSearch = searchBar.getText().trim();
 
         if(thread != null && thread.isAlive())
         {
