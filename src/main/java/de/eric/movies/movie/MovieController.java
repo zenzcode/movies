@@ -46,7 +46,6 @@ public class MovieController {
         String URL = Movies.class.getResource("Picture/"+ movie.picturenname).toString();
         Image bild = new Image(URL);
         movieImage.setImage(bild);
-
 }
 
     /**

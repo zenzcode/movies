@@ -155,6 +155,7 @@ public class MySQLConnection {
                 movieModel.length = resultSet.getInt("length");
                 movieModel.category = Category.values()[resultSet.getInt("category_id") - 1];
                 movieModel.ratingStars = (resultSet.getInt("review_score"))*5 / 10;
+                movieModel.picturenname = resultSet.getString("Picture.picturename");
                 modelList.add(movieModel);
             }
 
