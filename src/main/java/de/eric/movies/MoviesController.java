@@ -107,7 +107,7 @@ public class MoviesController {
         thread = DelayManager.delay(1000, () -> {
             if(requestedSearch.isEmpty())
             {
-                filteredMovies = loadedMovies;
+                filteredMovies.addAll(loadedMovies);
                 try {
                     renderMovies();
                 } catch (IOException e) {

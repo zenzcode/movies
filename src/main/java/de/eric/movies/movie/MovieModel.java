@@ -14,7 +14,6 @@ public class MovieModel {
     public int year;
     public int ratingStars;
     public Category category;
-
     public String picturenname;
 
 
